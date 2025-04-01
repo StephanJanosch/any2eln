@@ -25,11 +25,12 @@ from any2eln.utils.rocrate import get_crate_metadata
 
 
 class Labfolder:
-    def __init__(self, server: str , username: str, password: str, out_dir='.'):
+    def __init__(self, server: str , username: str, password: str, out_dir='.', verifySSL = True):
         self.server = server
         # TODO: check for empty server
         self.username = username
         self.password = password
+        self.verifySSL = verifySSL
         self.token = self.__get_token()
         # number of entries to get in a request
         self.chunk_size = 100
@@ -51,7 +52,7 @@ class Labfolder:
             'password': self.password,
         }
         try:
-            response = requests.post(url, headers=headers, data=json.dumps(data))
+            response = requests.post(url, headers=headers, data=json.dumps(data), verify = self.verifySSL)
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
             print(f'Error getting token: {e}')
@@ -77,7 +78,7 @@ class Labfolder:
         headers = {'Authorization': f'Bearer {self.token}'}
         params = {'expand': 'author,project,last_editor', 'limit': limit, 'offset': offset}
         try:
-            response = requests.get(url, headers=headers, params=params)
+            response = requests.get(url, headers=headers, params=params, verify = self.verifySSL)
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
             print(f'Error getting entries: {e}')
@@ -384,7 +385,7 @@ itemsApi.patch_item(itemId, body={'title': """
         debug('')
         headers = {'Authorization': f'Bearer {self.token}'}
         try:
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, verify = self.verifySSL)
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
             print(f'Error getting element: {e}')

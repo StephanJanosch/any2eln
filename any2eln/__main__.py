@@ -18,7 +18,7 @@ def main():
         server = env_or_ask('LABFOLDER_SERVER', 'Your Labfolder server (e.g. labfolder.labforward.app): ')
         username = env_or_ask('LABFOLDER_USERNAME', 'Your Labfolder username or email: ')
         password = env_or_ask('LABFOLDER_PASSWORD', 'Your Labfolder password: ')
-        lf = Labfolder(server, username, password, out_dir=args.out_dir)
+        lf = Labfolder(server, username, password, out_dir=args.out_dir, verifySSL=True)
         lf.extract()
     else:
         print('Not implemented.')

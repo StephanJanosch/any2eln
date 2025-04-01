@@ -4,6 +4,7 @@
 
 ### Install
 
+might be outdated
 ~~~bash
 git clone https://gitub.com/TheELNConsortium/any2eln
 cd any2eln

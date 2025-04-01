@@ -16,22 +16,22 @@ This `.eln` archive can then easily be re-imported in another ELN.
 ~~~
 git clone https://github.com/TheELNConsortium/any2eln
 cd any2eln
-python -m venv venv
-source venv/bin/activate
+
 poetry install
 ~~~
 
 # Usage
 
 ~~~
-python any2eln --help
+poetry run python any2eln --help
 ~~~
 
 # Labfolder module
 
 ## Description
 
-This module allows you to extract all your data from a Labfolder.com account. It goes through all the entries and saves them per author as `.eln` archives. Using this module requires an account on Labfolder.com website.
+This module allows you to extract all accessible data from a Labfolder account. It goes through all the entries and saves them per author as `.eln` archives. Using this module requires an account on a Labfolder instance.
+Optionally it allows filtering by subgroup, for this group id and subgroup id have to entered. 
 
 The `DATA` elements are converted as `.csv` sheet by sheet, when possible, and the full `.json` metadata is also saved alongside.
 
@@ -42,7 +42,7 @@ This project is not affiliated with Labfolder software or Labforward GmbH. It si
 ## Usage
 
 ~~~
-python any2eln --src labfolder
+poetry run python any2eln --src labfolder
 ~~~
 
 The exported data will be saved in the current directory in a folder named `export-Y-m-d-H-M-s`.

@@ -18,7 +18,9 @@ def main():
         server = env_or_ask('LABFOLDER_SERVER', 'Your Labfolder server (e.g. labfolder.labforward.app): ')
         username = env_or_ask('LABFOLDER_USERNAME', 'Your Labfolder username or email: ')
         password = env_or_ask('LABFOLDER_PASSWORD', 'Your Labfolder password: ')
-        lf = Labfolder(server, username, password, out_dir=args.out_dir, verifySSL=True)
+        group_id = env_or_ask('LABFOLDER_GROUPID', 'Your Labfolder group id (e.g. 150): ')
+        subgroup_id = env_or_ask('LABFOLDER_SUB_GROUPID', 'Your Labfolder subgroup id (e.g. 166): ')
+        lf = Labfolder(server, username, password, group_id, subgroup_id, out_dir=args.out_dir, verifySSL=False)
         lf.extract()
     else:
         print('Not implemented.')

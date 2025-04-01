@@ -25,13 +25,15 @@ from any2eln.utils.rocrate import get_crate_metadata
 
 
 class Labfolder:
-    def __init__(self, server: str , username: str, password: str, out_dir='.', verifySSL = True):
+    def __init__(self, server: str , username: str, password: str, group_id: int , subgroup_id: int, out_dir='.', verifySSL = True):
         self.server = server
         # TODO: check for empty server
         self.username = username
         self.password = password
         self.verifySSL = verifySSL
         self.token = self.__get_token()
+        self.group_id = group_id
+        self.subgroup_id = subgroup_id
         # number of entries to get in a request
         self.chunk_size = 100
         # output directory
@@ -74,7 +76,13 @@ class Labfolder:
         return entries
 
     def __get_entries_chunk(self, offset: int, limit=100):
-        url = 'https://'+ self.server +'/api/v2/entries'
+        if (not self.subgroup_id):
+            url = f'https://{self.server}/api/v2/entries'
+        else:
+            if not self.group_id and self.subgroup_id:
+                print('Subgroup filtering requires group ID')
+                sys.exit(10)
+            url = f'https://{self.server}/api/v2/entries?group_ids={self.group_id}&subgroup_ids={self.subgroup_id}'
         headers = {'Authorization': f'Bearer {self.token}'}
         params = {'expand': 'author,project,last_editor', 'limit': limit, 'offset': offset}
         try:

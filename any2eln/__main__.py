@@ -20,7 +20,7 @@ def main():
         password = env_or_ask('LABFOLDER_PASSWORD', 'Your Labfolder password: ')
         group_id = env_or_ask('LABFOLDER_GROUPID', 'Your Labfolder group id (e.g. 150): ')
         subgroup_id = env_or_ask('LABFOLDER_SUB_GROUPID', 'Your Labfolder subgroup id (e.g. 166): ')
-        lf = Labfolder(server, username, password, group_id, subgroup_id, out_dir=args.out_dir, verifySSL=False)
+        lf = Labfolder(server, username, password, group_id, subgroup_id, out_dir=args.out_dir, verifySSL=True)
         lf.extract()
     else:
         print('Not implemented.')

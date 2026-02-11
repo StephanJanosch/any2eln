@@ -45,6 +45,12 @@ This project is not affiliated with Labfolder software or Labforward GmbH. It si
 poetry run python any2eln --src labfolder
 ~~~
 
+Subgroups can be checked via. 
+```shell
+TOKEN='Authorization: Bearer <TOKEN>'
+curl 'https://labfolder.mpi-cbg.de/api/v2/groups/150/subgroups?limit=50'  -H 'Accept: */*' -H $TOKEN -H 'Accept-Encoding: br'
+```
+
 The exported data will be saved in the current directory in a folder named `export-Y-m-d-H-M-s`.
 
 For a more verbose output, add ``DEV=1`` to your execution environment.
